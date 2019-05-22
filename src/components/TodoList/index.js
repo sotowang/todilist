@@ -1,20 +1,6 @@
 import React, {Component} from 'react';
 import TodoItem from '../TodoItem';
 
-
-// const data = [
-//     {
-//         des: '1这是一个描述',
-//         status: '完成',
-//     },
-//     {
-//         des: '2这是一个描述',
-//         status: '未完成',
-//     }
-//
-// ];
-
-
 class TodoList extends Component {
     constructor(props) {
         super(props);
@@ -26,6 +12,7 @@ class TodoList extends Component {
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleBtnClick = this.handleBtnClick.bind(this);
         this.changeStatus = this.changeStatus.bind(this);
+        this.delete = this.delete.bind(this);
     };
 
     handleInputChange(e) {
@@ -38,7 +25,8 @@ class TodoList extends Component {
         const newTd = this.state.data;
         newTd.push({
             des: this.state.inputValue,
-            status: '未完成'
+            status: '未完成',
+            className:'todoItem__table'
         });
 
         this.setState({
@@ -52,20 +40,30 @@ class TodoList extends Component {
     changeStatus(index) {
         const data = [...this.state.data];
         data[index].status = '已完成';
+        data[index].className = 'todoItem__delete';
         this.setState(
             {
-                data: data
+                data
             }
         );
-        console.log(index);
+    }
 
+    delete(index) {
+        const data = [...this.state.data];
+
+        data.splice(index, 1);
+        this.setState(
+            {
+                data
+            }
+        )
     }
 
     render() {
         return (
             <div>
                 <div>
-                    <input value={this.state.inputValue} onChange={this.handleInputChange}/>
+                    <input className="input-class" value={this.state.inputValue} onChange={this.handleInputChange}/>
                     <button className="red-btn" onClick={this.handleBtnClick}>添加</button>
                 </div>
 
@@ -83,6 +81,7 @@ class TodoList extends Component {
                                           data={item}
                                           index={index}
                                           changeStatus={this.changeStatus}
+                                          delete={this.delete}
                                 />
                             )
                         }
