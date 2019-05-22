@@ -15,10 +15,8 @@ import TodoItem from '../TodoItem';
 // ];
 
 
-
-
 class TodoList extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             data: [],
@@ -26,14 +24,14 @@ class TodoList extends Component {
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
-        this.handleBtnClick = this.handleBtnClick.bind(this)
+        this.handleBtnClick = this.handleBtnClick.bind(this);
+        this.changeStatus = this.changeStatus.bind(this);
     };
 
     handleInputChange(e) {
         this.setState({
             inputValue: e.target.value,
-
-    })
+        })
     }
 
     handleBtnClick() {
@@ -49,6 +47,18 @@ class TodoList extends Component {
         });
 
         console.log(this.state.data);
+    }
+
+    changeStatus(index) {
+        const data = [...this.state.data];
+        data[index].status = '已完成';
+        this.setState(
+            {
+                data: data
+            }
+        );
+        console.log(index);
+
     }
 
     render() {
@@ -72,8 +82,10 @@ class TodoList extends Component {
                                 <TodoItem key={index}
                                           data={item}
                                           index={index}
+                                          changeStatus={this.changeStatus}
                                 />
-                            )}
+                            )
+                        }
                     )}
                     </thead>
                 </table>
