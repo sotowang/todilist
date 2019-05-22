@@ -1,0 +1,14 @@
+.todoItem__btn--red{
+    background-color: red;
+}
+.todoItem__btn--grey{
+    background-color: grey;
+}
+.todoItem__table{
+    white-space: nowrap;
+    padding: 15px 10px;
+    text-align: center;
+    font-size: 16px;
+    line-height: 1;
+    width: 33%;
+}
